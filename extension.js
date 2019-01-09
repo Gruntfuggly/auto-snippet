@@ -1,8 +1,29 @@
 var vscode = require( 'vscode' );
 var path = require( 'path' );
+var micromatch = require( 'micromatch' );
 
 function activate( context )
 {
+    var mappings = vscode.workspace.getConfiguration( 'autoSnippet' ).get( 'snippets' );
+
+    if( Array.isArray( mappings ) === false )
+    {
+        var migrated_mappings = [];
+        Object.keys( mappings ).map( function( pattern )
+        {
+            migrated_mappings.push( {
+                pattern: "*." + pattern,
+                snippet: mappings[ pattern ]
+            } );
+        } );
+
+        vscode.workspace.getConfiguration( 'autoSnippet' ).update( 'snippets', migrated_mappings, true );
+
+        vscode.window.showInformationMessage( "\"autoSnippet.snippets\" setting has been migrated to the new format." );
+
+        mappings = migrated_mappings;
+    }
+
     context.subscriptions.push( vscode.workspace.onDidOpenTextDocument( function( document )
     {
         if( document )
@@ -10,19 +31,23 @@ function activate( context )
             var text = document.getText();
             if( text.length === 0 )
             {
-                var extension = path.extname( document.fileName ).substr( 1 );
-                var mappings = vscode.workspace.getConfiguration( 'autoSnippet' ).get( 'snippets' );
-                if( mappings[ extension ] !== undefined )
+                var filename = path.basename( document.fileName );
+
+                for( var m = 0; m < mappings.length; ++m )
                 {
-                    var insertedTimeout = setTimeout( function()
+                    if( micromatch.isMatch( filename, mappings[ m ].pattern ) )
                     {
-                        vscode.window.showErrorMessage( "Missing or empty snippet: " + mappings[ extension ] );
-                    }, 1000 );
-                    vscode.commands.executeCommand( 'editor.action.insertSnippet', { name: mappings[ extension ] } ).then( function()
-                    {
-                        clearTimeout( insertedTimeout );
-                    } );
-                }
+                        var insertedTimeout = setTimeout( function()
+                        {
+                            vscode.window.showErrorMessage( "Missing or empty snippet: " + mappings[ m ].pattern );
+                        }, 1000 );
+                        vscode.commands.executeCommand( 'editor.action.insertSnippet', { name: mappings[ m ].snippet } ).then( function()
+                        {
+                            clearTimeout( insertedTimeout );
+                        } );
+                        break;
+                    }
+                };
             }
         }
     } ) );

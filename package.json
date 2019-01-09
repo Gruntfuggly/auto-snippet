@@ -3,7 +3,7 @@
     "displayName": "Auto Snippet",
     "description": "Insert a snippet when opening an empty file",
     "icon": "icon.png",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "Gruntfuggly",
     "repository": "https://github.com/Gruntfuggly/auto-snippet",
     "engines": {
@@ -22,18 +22,34 @@
             "title": "Auto Snippet",
             "properties": {
                 "autoSnippet.snippets": {
-                    "type": "object",
+                    "type": "array",
                     "markdownDescription": "Mappings from file extensions to required snippets",
-                    "default": {
-                        "h": "header-template",
-                        "cpp": "body-template",
-                        "js": "template"
-                    }
+                    "default": [
+                        {
+                            "pattern": "ut-*.cpp",
+                            "snippet": "ut-template"
+                        },
+                        {
+                            "pattern": "*.h",
+                            "snippet": "header-template"
+                        },
+                        {
+                            "pattern": "*.cpp",
+                            "snippet": "body-template"
+                        },
+                        {
+                            "pattern": "*.js",
+                            "snippet": "template"
+                        }
+                    ]
                 }
             }
         }
     },
     "devDependencies": {
         "vscode": "^1.0.0"
+    },
+    "dependencies": {
+        "micromatch": "^3.1.10"
     }
 }

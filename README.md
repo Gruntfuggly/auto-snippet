@@ -6,16 +6,19 @@ This allows templates for classes etc. to be inserted with all the benefits of p
 
 ## Configuration
 
-There is one configuration setting which maps file extensions to snippet names.
+There is one configuration setting which maps filename globs to snippet names.
 
 Example:
 ```javascript
-autoSnippet.snippets: {
-    "h": "header-template",
-    "cpp": "body-template",
-    "js": "template"
-}
+autoSnippet.snippets: [
+    { "pattern": "ut-*.cpp", "snippet": "ut-template",
+    { "pattern": "*.h", "snippet": "header-template" },
+    { "pattern": "*.cpp", "snippet": "body-template",
+    { "pattern": "*.js", "snippet": "template" }
+]
 ```
+
+*Note: The patterns are matched in order of definition. The first one that matches will be used.*
 
 Use F1, **Preferences: Configure User Snippets** to configure your snippets. For more information on configuration snippets, see [here](https://code.visualstudio.com/docs/editor/userdefinedsnippets).
 
