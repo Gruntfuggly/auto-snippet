@@ -3,7 +3,7 @@
     "displayName": "Auto Snippet",
     "description": "Insert a snippet when opening an empty file",
     "icon": "icon.png",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "Gruntfuggly",
     "repository": "https://github.com/Gruntfuggly/auto-snippet",
     "engines": {
@@ -51,5 +51,10 @@
     },
     "dependencies": {
         "micromatch": "^3.1.10"
+    },
+    "__metadata": {
+        "id": "c0bb4a70-68b8-4e38-93a0-647bd4af6fcd",
+        "publisherDisplayName": "Gruntfuggly",
+        "publisherId": "d4906d2e-f2ee-492d-9c7c-02b6160599ec"
     }
 }

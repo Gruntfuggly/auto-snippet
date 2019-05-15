@@ -44,10 +44,15 @@ function activate( context )
                         vscode.commands.executeCommand( 'editor.action.insertSnippet', { name: mappings[ m ].snippet } ).then( function()
                         {
                             clearTimeout( insertedTimeout );
+                            var commands = mappings[ m ].commands;
+                            commands.split( "," ).map( function( command )
+                            {
+                                vscode.commands.executeCommand( command );
+                            } );
                         } );
                         break;
                     }
-                };
+                }
             }
         }
     } ) );
