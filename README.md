@@ -6,7 +6,7 @@ This allows templates for classes etc. to be inserted with all the benefits of p
 
 ## Configuration
 
-There is one configuration setting which maps filename globs to snippet names. You can also specified a comma separated list of commands to execute after inserting the snippet. Note: The commands are not executed sequentially.
+There is one configuration setting which maps filename globs (or language IDs) to snippet names. You can also specified a comma separated list of commands to execute after inserting the snippet. *Note: The commands are not executed sequentially*.
 
 Example:
 ```javascript
@@ -14,7 +14,7 @@ autoSnippet.snippets: [
     { "pattern": "ut-*.cpp", "snippet": "ut-template",
     { "pattern": "*.h", "snippet": "header-template" },
     { "pattern": "*.cpp", "snippet": "body-template",
-    { "pattern": "*.js", "snippet": "template", "commands":"editor.action.commentLine" }
+    { "language": "javascript", "snippet": "template", "commands":"editor.action.commentLine" }
 ]
 ```
 

@@ -35,20 +35,26 @@ function activate( context )
 
                 for( var m = 0; m < mappings.length; ++m )
                 {
-                    if( micromatch.isMatch( filename, mappings[ m ].pattern ) )
+                    var languageMatch = mappings[ m ].language && mappings[ m ].language === document.languageId;
+                    var nameMatch = mappings[ m ].pattern && micromatch.isMatch( filename, mappings[ m ].pattern );
+
+                    if( languageMatch || nameMatch )
                     {
                         var insertedTimeout = setTimeout( function()
                         {
-                            vscode.window.showErrorMessage( "Missing or empty snippet: " + mappings[ m ].pattern );
+                            vscode.window.showErrorMessage( "Missing, empty or invalid snippet: " + mappings[ m ].snippet );
                         }, 1000 );
                         vscode.commands.executeCommand( 'editor.action.insertSnippet', { name: mappings[ m ].snippet } ).then( function()
                         {
                             clearTimeout( insertedTimeout );
                             var commands = mappings[ m ].commands;
-                            commands.split( "," ).map( function( command )
+                            if( commands )
                             {
-                                vscode.commands.executeCommand( command );
-                            } );
+                                commands.split( "," ).map( function( command )
+                                {
+                                    vscode.commands.executeCommand( command );
+                                } );
+                            }
                         } );
                         break;
                     }
