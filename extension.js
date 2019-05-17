@@ -48,9 +48,9 @@ function activate( context )
                         {
                             clearTimeout( insertedTimeout );
                             var commands = mappings[ m ].commands;
-                            if( commands )
+                            if( Array.isArray( commands ) )
                             {
-                                commands.split( "," ).map( function( command )
+                                commands.map( function( command )
                                 {
                                     vscode.commands.executeCommand( command );
                                 } );

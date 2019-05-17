@@ -1,3 +1,6 @@
+# v0.0.5 - 2019-05-17
+- Use an array of commands instead of a comma separated list
+
 # v0.0.4 - 2019-05-16
 - Allow snippets to be inserted based on language as well as filename pattern
 
