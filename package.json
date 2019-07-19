@@ -3,7 +3,7 @@
     "displayName": "Auto Snippet",
     "description": "Insert a snippet when opening an empty file",
     "icon": "icon.png",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "publisher": "Gruntfuggly",
     "repository": "https://github.com/Gruntfuggly/auto-snippet",
     "engines": {
@@ -21,16 +21,21 @@
             "type": "object",
             "title": "Auto Snippet",
             "properties": {
+                "autoSnippet.debug": {
+                    "type": "boolean",
+                    "markdownDescription": "Create a debug channel in the output view",
+                    "default": false
+                },
                 "autoSnippet.snippets": {
                     "type": "array",
                     "markdownDescription": "Mappings from file extensions to required snippets",
                     "default": [
                         {
-                            "pattern": "*.h",
+                            "pattern": "**/*.h",
                             "snippet": "header-template"
                         },
                         {
-                            "pattern": "*.cpp",
+                            "pattern": "**/*.cpp",
                             "snippet": "body-template"
                         },
                         {

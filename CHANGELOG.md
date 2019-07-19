@@ -1,3 +1,8 @@
+# v0.0.6 - 2019-06-19
+- Match filenames properly, not just on basename
+- Allow configuration to be changed without needing to reload
+- Add debug channel
+
 # v0.0.5 - 2019-05-17
 - Use an array of commands instead of a comma separated list
 

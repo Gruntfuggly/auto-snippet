@@ -4,6 +4,29 @@ var micromatch = require( 'micromatch' );
 
 function activate( context )
 {
+    var outputChannel;
+
+    function debug( text )
+    {
+        if( outputChannel )
+        {
+            outputChannel.appendLine( text );
+        }
+    }
+
+    function resetOutputChannel()
+    {
+        if( outputChannel )
+        {
+            outputChannel.dispose();
+            outputChannel = undefined;
+        }
+        if( vscode.workspace.getConfiguration( 'autoSnippet' ).debug === true )
+        {
+            outputChannel = vscode.window.createOutputChannel( "Auto Snippet" );
+        }
+    }
+
     var mappings = vscode.workspace.getConfiguration( 'autoSnippet' ).get( 'snippets' );
 
     if( Array.isArray( mappings ) === false )
@@ -31,15 +54,32 @@ function activate( context )
             var text = document.getText();
             if( text.length === 0 )
             {
-                var filename = path.basename( document.fileName );
+                var mappings = vscode.workspace.getConfiguration( 'autoSnippet' ).get( 'snippets' );
+
+                var filename = document.fileName;
+                var found = false;
+
+                debug( "Opened empty file " + filename );
 
                 for( var m = 0; m < mappings.length; ++m )
                 {
                     var languageMatch = mappings[ m ].language && mappings[ m ].language === document.languageId;
                     var nameMatch = mappings[ m ].pattern && micromatch.isMatch( filename, mappings[ m ].pattern );
 
+                    if( languageMatch )
+                    {
+                        debug( " Matched language " + document.languageId );
+                    }
+                    if( nameMatch )
+                    {
+                        debug( " Matched pattern " + mappings[ m ].pattern );
+                    }
+
                     if( languageMatch || nameMatch )
                     {
+                        found = true;
+
+                        debug( " Inserting snippet " + mappings[ m ].snippet );
                         var insertedTimeout = setTimeout( function()
                         {
                             vscode.window.showErrorMessage( "Missing, empty or invalid snippet: " + mappings[ m ].snippet );
@@ -59,9 +99,28 @@ function activate( context )
                         break;
                     }
                 }
+
+                if( found !== true )
+                {
+                    debug( " No snippet found" );
+                }
+
             }
         }
     } ) );
+
+    context.subscriptions.push( vscode.workspace.onDidChangeConfiguration( function( e )
+    {
+        if( e.affectsConfiguration( "autoSnippet" ) )
+        {
+            if( e.affectsConfiguration( "autoSnippet.debug" ) )
+            {
+                resetOutputChannel();
+            }
+        }
+    } ) );
+
+    resetOutputChannel();
 }
 
 function deactivate()

@@ -11,10 +11,10 @@ There is one configuration setting which maps filename globs (or language IDs) t
 Example:
 ```javascript
 autoSnippet.snippets: [
-    { "pattern": "ut-*.cpp", "snippet": "ut-template",
-    { "pattern": "*.h", "snippet": "header-template" },
-    { "pattern": "*.cpp", "snippet": "body-template",
-    { "language": "javascript", "snippet": "template", "commands":"[ editor.action.commentLine" ] }
+    { "pattern": "**/ut-*.cpp", "snippet": "ut-template",
+    { "pattern": "**/*.h", "snippet": "header-template" },
+    { "pattern": "**/*.cpp", "snippet": "body-template",
+    { "language": "javascript", "snippet": "template", "commands":[ "editor.action.commentLine" ] }
 ]
 ```
 
