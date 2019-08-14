@@ -49,6 +49,18 @@ function activate( context )
 
     context.subscriptions.push( vscode.workspace.onDidOpenTextDocument( function( document )
     {
+        function runCommands( commands )
+        {
+            if( Array.isArray( commands ) )
+            {
+                commands.map( function( command )
+                {
+                    debug( " Running command: " + command );
+                    vscode.commands.executeCommand( command );
+                } );
+            }
+        }
+
         if( document )
         {
             var text = document.getText();
@@ -79,23 +91,25 @@ function activate( context )
                     {
                         found = true;
 
-                        debug( " Inserting snippet " + mappings[ m ].snippet );
-                        var insertedTimeout = setTimeout( function()
+                        vscode.window.showTextDocument( document, false );
+
+                        if( mappings[ m ].snippet === undefined )
                         {
-                            vscode.window.showErrorMessage( "Missing, empty or invalid snippet: " + mappings[ m ].snippet );
-                        }, 1000 );
-                        vscode.commands.executeCommand( 'editor.action.insertSnippet', { name: mappings[ m ].snippet } ).then( function()
+                            runCommands( mappings[ m ].commands );
+                        }
+                        else
                         {
-                            clearTimeout( insertedTimeout );
-                            var commands = mappings[ m ].commands;
-                            if( Array.isArray( commands ) )
+                            debug( " Inserting snippet " + mappings[ m ].snippet );
+                            var insertedTimeout = setTimeout( function()
                             {
-                                commands.map( function( command )
-                                {
-                                    vscode.commands.executeCommand( command );
-                                } );
-                            }
-                        } );
+                                vscode.window.showErrorMessage( "Missing, empty or invalid snippet: " + mappings[ m ].snippet );
+                            }, 1000 );
+                            vscode.commands.executeCommand( 'editor.action.insertSnippet', { name: mappings[ m ].snippet } ).then( function()
+                            {
+                                clearTimeout( insertedTimeout );
+                                runCommands( mappings[ m ].commands );
+                            } );
+                        }
                         break;
                     }
                 }

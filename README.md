@@ -6,7 +6,7 @@ This allows templates for classes etc. to be inserted with all the benefits of p
 
 ## Configuration
 
-There is one configuration setting which maps filename globs (or language IDs) to snippet names. You can also specify an array of commands to execute after inserting the snippet. *Note: The commands are not executed synchronously*.
+There is one configuration setting which maps filename globs (or language IDs) to snippet names. You can also specify an array of commands to execute after inserting the snippet. *Note: The commands are not executed synchronously. If no snippet is configured, the commands are still run*.
 
 Example:
 ```javascript
@@ -21,6 +21,10 @@ autoSnippet.snippets: [
 *Note: The patterns are matched in order of definition. The first one that matches will be used.*
 
 Use F1, **Preferences: Configure User Snippets** to configure your snippets. For more information on configuration snippets, see [here](https://code.visualstudio.com/docs/editor/userdefinedsnippets).
+
+### Output Channel
+
+There is also an output channel which can be enabled via the settings. This can be used to check pattern matches, etc.
 
 ## Installing
 

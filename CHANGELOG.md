@@ -1,3 +1,6 @@
+# v0.0.7 - 2019-08-14
+- Allow commands to be run without needing a snippet to be inserted
+
 # v0.0.6 - 2019-06-19
 - Match filenames properly, not just on basename
 - Allow configuration to be changed without needing to reload
