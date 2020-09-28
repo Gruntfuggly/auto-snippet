@@ -1,5 +1,7 @@
 # Auto Snippet Change Log
 
+## v0.0.8 - 2020-09-28
+
 - Fix JSON errors in README.md
 - Fix markdown linter errors in README.md and CHANGELOG.md
 
