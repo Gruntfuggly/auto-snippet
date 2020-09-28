@@ -9,11 +9,12 @@ This allows templates for classes etc. to be inserted with all the benefits of p
 There is one configuration setting which maps filename globs (or language IDs) to snippet names. You can also specify an array of commands to execute after inserting the snippet. *Note: The commands are not executed synchronously. If no snippet is configured, the commands are still run*.
 
 Example:
+
 ```javascript
 autoSnippet.snippets: [
-    { "pattern": "**/ut-*.cpp", "snippet": "ut-template",
+    { "pattern": "**/ut-*.cpp", "snippet": "ut-template" },
     { "pattern": "**/*.h", "snippet": "header-template" },
-    { "pattern": "**/*.cpp", "snippet": "body-template",
+    { "pattern": "**/*.cpp", "snippet": "body-template" },
     { "language": "javascript", "snippet": "template", "commands":[ "editor.action.commentLine" ] }
 ]
 ```
