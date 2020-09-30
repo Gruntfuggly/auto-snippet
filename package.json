@@ -3,7 +3,7 @@
     "displayName": "Auto Snippet",
     "description": "Insert a snippet when opening an empty file",
     "icon": "icon.png",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "publisher": "Gruntfuggly",
     "repository": "https://github.com/Gruntfuggly/auto-snippet",
     "engines": {

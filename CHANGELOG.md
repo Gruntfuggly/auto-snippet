@@ -1,5 +1,7 @@
 # Auto Snippet Change Log
 
+## v0.0.9 - 2020-09-30
+
 - Fix re-insertion when file has not been saved
 
 ## v0.0.8 - 2020-09-28
