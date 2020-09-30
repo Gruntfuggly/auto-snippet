@@ -93,23 +93,26 @@ function activate( context )
 
                         vscode.window.showTextDocument( document, false );
 
-                        if( mappings[ m ].snippet === undefined )
+                        vscode.commands.executeCommand( 'editor.action.selectAll' ).then( function()
                         {
-                            runCommands( mappings[ m ].commands );
-                        }
-                        else
-                        {
-                            debug( " Inserting snippet " + mappings[ m ].snippet );
-                            var insertedTimeout = setTimeout( function()
+                            if( mappings[ m ].snippet === undefined )
                             {
-                                vscode.window.showErrorMessage( "Missing, empty or invalid snippet: " + mappings[ m ].snippet );
-                            }, 1000 );
-                            vscode.commands.executeCommand( 'editor.action.insertSnippet', { name: mappings[ m ].snippet } ).then( function()
-                            {
-                                clearTimeout( insertedTimeout );
                                 runCommands( mappings[ m ].commands );
-                            } );
-                        }
+                            }
+                            else
+                            {
+                                debug( " Inserting snippet " + mappings[ m ].snippet );
+                                var insertedTimeout = setTimeout( function()
+                                {
+                                    vscode.window.showErrorMessage( "Missing, empty or invalid snippet: " + mappings[ m ].snippet );
+                                }, 1000 );
+                                vscode.commands.executeCommand( 'editor.action.insertSnippet', { name: mappings[ m ].snippet } ).then( function()
+                                {
+                                    clearTimeout( insertedTimeout );
+                                    runCommands( mappings[ m ].commands );
+                                } );
+                            }
+                        } );
                         break;
                     }
                 }

@@ -1,5 +1,7 @@
 # Auto Snippet Change Log
 
+- Fix re-insertion when file has not been saved
+
 ## v0.0.8 - 2020-09-28
 
 - Fix JSON errors in README.md
