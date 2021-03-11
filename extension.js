@@ -108,6 +108,16 @@ function activate( context )
                                 }, 1000 );
                                 vscode.commands.executeCommand( 'editor.action.insertSnippet', { name: mappings[ m ].snippet } ).then( function()
                                 {
+                                    var editor = vscode.window.activeTextEditor;
+                                    if( editor && editor.document && editor.document.getText() === "" )
+                                    {
+                                        vscode.window.showErrorMessage( "Missing, empty or invalid snippet: " + mappings[ m ].snippet );
+                                        debug( "  Nothing inserted. Does snippet exist?" );
+                                    }
+                                    else
+                                    {
+                                        debug( "  Inserted" );
+                                    }
                                     clearTimeout( insertedTimeout );
                                     runCommands( mappings[ m ].commands );
                                 } );

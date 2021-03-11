@@ -1,5 +1,7 @@
 # Auto Snippet Change Log
 
+- Add additional check that document is not empty after insertion
+
 ## v0.0.9 - 2020-09-30
 
 - Fix re-insertion when file has not been saved
