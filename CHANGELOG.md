@@ -1,5 +1,7 @@
 # Auto Snippet Change Log
 
+## v0.0.10 - 2021-03-11
+
 - Add additional check that document is not empty after insertion
 - Add license
 
