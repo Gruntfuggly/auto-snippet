@@ -6,6 +6,7 @@
     "version": "0.0.9",
     "publisher": "Gruntfuggly",
     "repository": "https://github.com/Gruntfuggly/auto-snippet",
+    "license": "MIT",
     "engines": {
         "vscode": "^1.5.0"
     },
