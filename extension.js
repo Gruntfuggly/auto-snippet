@@ -61,7 +61,7 @@ function activate( context )
             }
         }
 
-        if( document )
+        if( document && document.uri && document.uri.scheme === 'file' )
         {
             var text = document.getText();
             if( text.length === 0 )
