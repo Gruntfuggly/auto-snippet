@@ -1,5 +1,7 @@
 # Auto Snippet Change Log
 
+## v0.0.11 - 2021-06-14
+
 - Only insert snippets into documents with a file URI scheme
 - Add support for regex filename matches
 
