@@ -77,6 +77,13 @@ function activate( context )
                 {
                     var languageMatch = mappings[ m ].language && mappings[ m ].language === document.languageId;
                     var nameMatch = mappings[ m ].pattern && micromatch.isMatch( filename, mappings[ m ].pattern );
+                    var regexMatch = false;
+
+                    if( mappings[ m ].regex )
+                    {
+                        var regex = new RegExp( mappings[ m ].regex );
+                        regexMatch = filename.match( regex );
+                    }
 
                     if( languageMatch )
                     {
@@ -86,8 +93,12 @@ function activate( context )
                     {
                         debug( " Matched pattern " + mappings[ m ].pattern );
                     }
+                    if( regexMatch )
+                    {
+                        debug( " Matched regex " + mappings[ m ].regex );
+                    }
 
-                    if( languageMatch || nameMatch )
+                    if( languageMatch || nameMatch || regexMatch )
                     {
                         found = true;
 

@@ -6,7 +6,13 @@ This allows templates for classes etc. to be inserted with all the benefits of p
 
 ## Configuration
 
-There is one configuration setting which maps filename globs (or language IDs) to snippet names. You can also specify an array of commands to execute after inserting the snippet. *Note: The commands are not executed synchronously. If no snippet is configured, the commands are still run*.
+There is one configuration setting which maps filename globs (or language IDs) to snippet names. For example, to match a typescript filename in any folder, use one of the following:
+
+- set `"pattern"` to `"**/*.ts"`
+- set `"regex"` to `".*\.ts"`
+- set `"language"` to `"typescript"`.
+
+You can also specify an array of commands to execute after inserting the snippet. *Note: The commands are not executed synchronously. If no snippet is configured, the commands are still run*.
 
 Example:
 
